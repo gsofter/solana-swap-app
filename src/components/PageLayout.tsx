@@ -112,7 +112,7 @@ export default function PageLayout(props: {
       ) : (
         <>
           <Navbar className="grid-area-a" />
-          <SideMenu className="flex-container grid-area-b" />
+          {/* <SideMenu className="flex-container grid-area-b" /> */}
         </>
       )}
       <main
@@ -367,7 +367,7 @@ function Navbar({
   const pcNavContent = (
     <Row className="justify-between items-center">
       <Link href="/">
-        <Image className={`cursor-pointer ${inDev ? 'hue-rotate-60' : ''}`} src="/logo/logo-with-text.svg" />
+        <Image className={`cursor-pointer ${inDev ? 'hue-rotate-60' : ''}`} src="/logo/bloxroute-logo.svg" />
       </Link>
 
       <Row className="gap-8 items-center">
@@ -532,7 +532,7 @@ function SideMenu({ className, onClickCloseBtn }: { className?: string; onClickC
         {isMobile && (
           <Row className="items-center justify-between p-6 mobile:p-4 mobile:pl-8">
             <Link href="/">
-              <Image src="/logo/logo-with-text.svg" className={`mobile:scale-75 ${inDev ? 'hue-rotate-60' : ''}`} />
+              <Image src="/logo/bloxroute-logo.svg" className={`mobile:scale-75 ${inDev ? 'hue-rotate-60' : ''}`} />
             </Link>
             <Icon
               size={isMobile ? 'sm' : 'md'}

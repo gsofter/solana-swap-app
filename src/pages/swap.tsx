@@ -17,8 +17,14 @@ import { useSwapAmountCalculator } from '@/application/swap/useSwapAmountCalcula
 import useSwapInitCoinFiller from '@/application/swap/useSwapInitCoinFiller'
 import useSwapUrlParser from '@/application/swap/useSwapUrlParser'
 import {
-  isQuantumSOLVersionSOL, isQuantumSOLVersionWSOL, QuantumSOLVersionSOL, QuantumSOLVersionWSOL, SOL_BASE_BALANCE,
-  SOLDecimals, toUITokenAmount, WSOLMint
+  isQuantumSOLVersionSOL,
+  isQuantumSOLVersionWSOL,
+  QuantumSOLVersionSOL,
+  QuantumSOLVersionWSOL,
+  SOL_BASE_BALANCE,
+  SOLDecimals,
+  toUITokenAmount,
+  WSOLMint
 } from '@/application/token/quantumSOL'
 import { SplToken } from '@/application/token/type'
 import useToken, { RAYDIUM_MAINNET_TOKEN_LIST_NAME } from '@/application/token/useToken'
@@ -81,10 +87,10 @@ export default function Swap() {
     <SwapUIContextProvider>
       <SwapEffect />
       <PageLayout mobileBarTitle="Swap" metaTitle="Swap - Raydium">
-        <SwapHead />
+        {/* <SwapHead /> */}
         <SwapCard />
         {/* <UnwrapWSOL /> */}
-        <KLineChart />
+        {/* <KLineChart /> */}
       </PageLayout>
     </SwapUIContextProvider>
   )

@@ -13,7 +13,7 @@ import { Config, Endpoint } from './type'
 import useConnection, { SESSION_STORAGE_USER_SELECTED_RPC } from './useConnection'
 
 const mockRPCConfig: Omit<Config, 'success'> = {
-  rpcs: [{ name: 'beta-mainnet', url: 'https://api.mainnet-beta.solana.com/' }],
+  rpcs: [{ name: 'beta-mainnet', url: 'http://45.250.253.78:8899/' }],
   devrpcs: [{ name: 'devnet', url: 'https://api.devnet.solana.com/', net: 'devnet' }],
   strategy: 'speed'
 }

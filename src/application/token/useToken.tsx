@@ -220,7 +220,7 @@ export const useToken = create<TokenStore>((set, get) => ({
     const { getToken } = get()
     const RAY = getToken(RAYMint)
 
-    const whiteList = shakeUndifindedItem([RAY, QuantumSOLVersionSOL])
+    const whiteList = shakeUndifindedItem([QuantumSOLVersionSOL])
     // noQuantumSOL
     const whiteListMints = whiteList.filter((token) => !isQuantumSOL(token)).map((token) => String(token.mint))
 

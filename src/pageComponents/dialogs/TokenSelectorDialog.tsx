@@ -285,7 +285,7 @@ function TokenSelectorDialogContent({
             <div className="text-xs font-medium text-[rgba(171,196,255,.5)] my-3">Popular tokens</div>
 
             <Row className="justify-between">
-              {([RAYMint, QuantumSOLVersionSOL, USDTMint, USDCMint] as const).map((mintish, idx) => {
+              {([QuantumSOLVersionSOL, USDTMint, USDCMint] as const).map((mintish, idx) => {
                 const token = isQuantumSOL(mintish) ? QuantumSOLVersionSOL : getToken(mintish)
                 return (
                   <Row

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import useToken from '@/application/token/useToken'
-import { RAYMint } from '@/application/token/wellknownToken.config'
+import { PAIMint } from '@/application/token/wellknownToken.config'
 import { getURLQueryEntry } from '@/functions/dom/getURLQueryEntries'
 import toPubString from '@/functions/format/toMintString'
 
@@ -22,8 +22,8 @@ export default function useSwapInitCoinFiller() {
     if (!coin1 && toPubString(coin2?.mint) !== toPubString(QuantumSOLVersionSOL.mint) && !hasInputCurrency) {
       useSwap.setState({ coin1: QuantumSOLVersionSOL })
     }
-    if (!coin2 && toPubString(coin1?.mint) !== toPubString(RAYMint) && !hasOutputCurrency) {
-      useSwap.setState({ coin2: getToken(RAYMint) })
+    if (!coin2 && toPubString(coin1?.mint) !== toPubString(PAIMint) && !hasOutputCurrency) {
+      useSwap.setState({ coin2: getToken(PAIMint) })
     }
   }, [getToken, coin1, coin2])
 }

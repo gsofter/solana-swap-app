@@ -86,7 +86,7 @@ export default function Swap() {
   return (
     <SwapUIContextProvider>
       <SwapEffect />
-      <PageLayout mobileBarTitle="Swap" metaTitle="Swap - Raydium">
+      <PageLayout mobileBarTitle="Swap" metaTitle="Swap - bloXroute Solana Trader API">
         {/* <SwapHead /> */}
         <SwapCard />
         {/* <UnwrapWSOL /> */}

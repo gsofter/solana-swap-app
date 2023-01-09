@@ -104,10 +104,7 @@ export default function PageLayout(props: {
       <RPCPerformanceBanner className="grid-area-d" />
       {isMobile ? (
         <>
-          <Navbar className="grid-area-a" barTitle={props.mobileBarTitle} onOpenMenu={() => setIsSideMenuOpen(true)} />
-          <Drawer open={isSideMenuOpen} onClose={() => setIsSideMenuOpen(false)} onOpen={() => setIsSideMenuOpen(true)}>
-            {({ close }) => <SideMenu className="flex-container h-full" onClickCloseBtn={close} />}
-          </Drawer>
+          <Navbar className="grid-area-a" barTitle={props.mobileBarTitle} />
         </>
       ) : (
         <>
@@ -131,7 +128,7 @@ export default function PageLayout(props: {
         {/* do not check ata currently
         <MigrateBubble /> */}
         <VersionTooOldDialog />
-        <DisclaimerDialog />
+        {/* <DisclaimerDialog /> */}
         {props.children}
       </main>
     </div>
@@ -366,12 +363,11 @@ function Navbar({
 
   const pcNavContent = (
     <Row className="justify-between items-center">
-      <Link href="/">
+      <Link href="/swap">
         <Image className={`cursor-pointer ${inDev ? 'hue-rotate-60' : ''}`} src="/logo/bloxroute-logo.svg" />
       </Link>
 
       <Row className="gap-8 items-center">
-        <MessageBoardWidget />
         <WalletWidget />
       </Row>
     </Row>
@@ -405,7 +401,6 @@ function Navbar({
       )}
 
       <Row className="gap-4 items-center justify-self-end">
-        <MessageBoardWidget />
         <WalletWidget />
       </Row>
     </Grid>

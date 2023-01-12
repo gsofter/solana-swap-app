@@ -70,20 +70,10 @@ const moduleExports = {
     ]
   },
 
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/acceleRaytor',
-  //       destination: 'https://v1.raydium.io/acceleRaytor',
-  //       permanent: false
-  //     },
-  //     {
-  //       source: '/acceleraytor',
-  //       destination: 'https://v1.raydium.io/acceleRaytor',
-  //       permanent: false
-  //     }
-  //   ]
-  // }
+  publicRuntimeConfig: {
+    TRADE_API_HTTP: process.env.TRADE_API_HTTP,
+    TRADE_API_AUTH_HEADER: process.env.TRADE_API_AUTH_HEADER
+  }
 }
 
 module.exports = withBundleAnalyzer(withGlobalCssConfig(withSentryConfig(moduleExports)))

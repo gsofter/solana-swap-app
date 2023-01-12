@@ -1,11 +1,5 @@
 const nextBuildId = require('next-build-id')
 
-const securityHeaders = [
-  {
-    key: "Content-Security-Policy",
-    value: `upgrade-insecure-requests; default-src 'self';`
-  }
-]
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -59,21 +53,6 @@ const moduleExports = {
       }
     ]
   },
-
-  async headers() {
-    return [
-      {
-        // Apply these headers to all routes in your application.
-        source: '/:path*',
-        headers: securityHeaders,
-      },
-    ]
-  },
-
-  publicRuntimeConfig: {
-    TRADE_API_HTTP: process.env.TRADE_API_HTTP,
-    TRADE_API_AUTH_HEADER: process.env.TRADE_API_AUTH_HEADER
-  }
 }
 
 module.exports = withBundleAnalyzer(withGlobalCssConfig(withSentryConfig(moduleExports)))

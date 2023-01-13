@@ -1,11 +1,5 @@
 const nextBuildId = require('next-build-id')
 
-const securityHeaders = [
-  {
-    key: "Content-Security-Policy",
-    value: `upgrade-insecure-requests; default-src 'self';`
-  }
-]
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -59,31 +53,6 @@ const moduleExports = {
       }
     ]
   },
-
-  async headers() {
-    return [
-      {
-        // Apply these headers to all routes in your application.
-        source: '/:path*',
-        headers: securityHeaders,
-      },
-    ]
-  },
-
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/acceleRaytor',
-  //       destination: 'https://v1.raydium.io/acceleRaytor',
-  //       permanent: false
-  //     },
-  //     {
-  //       source: '/acceleraytor',
-  //       destination: 'https://v1.raydium.io/acceleRaytor',
-  //       permanent: false
-  //     }
-  //   ]
-  // }
 }
 
 module.exports = withBundleAnalyzer(withGlobalCssConfig(withSentryConfig(moduleExports)))

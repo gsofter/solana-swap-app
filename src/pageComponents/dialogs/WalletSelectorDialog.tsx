@@ -183,7 +183,7 @@ function PanelContent({
       size="lg"
     >
       <Row className="items-center justify-between p-8 mobile:p-4">
-        <div className="text-xl mobile:text-lg font-semibold text-white">Connect your wallet to Raydium</div>
+        <div className="text-xl mobile:text-lg font-semibold text-white">Connect your wallet</div>
         <Icon className="text-[#ABC4FF] cursor-pointer" heroIconName="x" onClick={close} />
       </Row>
 
@@ -241,13 +241,6 @@ function PanelContent({
         <div className="font-bold mobile:text-sm">Show uninstalled wallets</div>
         <Icon className="mx-2" size="sm" heroIconName={isAllWalletShown ? 'chevron-up' : 'chevron-down'}></Icon>
       </Row>
-
-      <div className="py-4 text-white text-center font-medium text-sm border-t-1.5 border-[rgba(171,196,255,0.2)]">
-        New here?{' '}
-        <Link href="https://raydium.gitbook.io/raydium/" className="text-[#abc4ff]">
-          Get started on Raydium!
-        </Link>
-      </div>
     </Card>
   )
 }

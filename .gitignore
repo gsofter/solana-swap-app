@@ -44,3 +44,6 @@ tsconfig.tsbuildinfo
 i.json
 
 .idea
+
+# Env
+.env

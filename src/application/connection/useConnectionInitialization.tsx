@@ -16,7 +16,7 @@ const mockRPCConfig: Omit<Config, 'success'> = {
   rpcs: [
     {
       name: 'beta-mainnet',
-      url: 'https://little-practical-morning.solana-mainnet.discover.quiknode.pro/549ce5411514f70c68bc98f5b389035434611cf6/'
+      url: 'https://solana-mainnet.g.alchemy.com/v2/9_nENo5fCFKpC6AO5zH4LLJ9Yvst95gk/'
     }
   ],
   devrpcs: [{ name: 'devnet', url: 'https://api.devnet.solana.com/', net: 'devnet' }],

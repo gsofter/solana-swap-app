@@ -38,7 +38,7 @@
     "@raydium-io/raydium-sdk": "1.1.0-beta.44",
     "@sentry/nextjs": "^7.22.0",
     "@solana/wallet-adapter-base": "^0.9.19",
-    "@solana/wallet-adapter-react": "^0.15.25",
+    "@solana/wallet-adapter-react": "^0.15.28",
     "@solana/wallet-adapter-react-ui": "^0.9.23",
     "@solana/wallet-adapter-wallets": "^0.19.6",
     "@solana/web3.js": "^1.67.0",

@@ -57,11 +57,11 @@ const txSwap = createTxHandler(() => async ({ transactionCollector, baseUtils: {
 
   assert(routeType, 'accidently routeType is undefined')
 
-  const bloxTradeRes = await fetch(`${DEVNET_API_HTTP}/api/v1/trade/swap`, {
+  const bloxTradeRes = await fetch(`${process.env.NEXT_PUBLIC_TRADE_API_HTTP}/api/v1/trade/swap`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: TESTNET_AUTH_HEADER
+      Authorization: process.env.NEXT_PUBLIC_TRADE_API_AUTH_HEADER || ''
     },
     body: JSON.stringify({
       ownerAddress: String(owner),

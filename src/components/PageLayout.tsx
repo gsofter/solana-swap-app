@@ -128,7 +128,7 @@ export default function PageLayout(props: {
         {/* do not check ata currently
         <MigrateBubble /> */}
         <VersionTooOldDialog />
-        {/* <DisclaimerDialog /> */}
+        <DisclaimerDialog />
         {props.children}
       </main>
     </div>

@@ -150,7 +150,7 @@ export function useSwapAmountCalculator() {
       )
 
       useSwap.setState({
-        isFindingPool: false
+        isFindingPool: true
       })
 
       abortableSwapInfos.then((info) => {
@@ -196,6 +196,7 @@ export function useSwapAmountCalculator() {
           priceImpact,
           // executionPrice,
           // currentPrice,
+          isFindingPool: false,
           bestRoute: bestRoute,
           minReceived: minAmountOut,
           maxSpent: undefined,

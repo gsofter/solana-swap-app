@@ -215,8 +215,7 @@ function SwapCard() {
   const priceImpact = useSwap((s) => s.priceImpact)
   const refreshSwap = useSwap((s) => s.refreshSwap)
   const balances = useWallet((s) => s.balances)
-  const preflightCalcResult = useSwap((s) => s.preflightCalcResult)
-  const isFindingPool = !preflightCalcResult // finding Pools ...
+  const isFindingPool = useSwap((s) => s.isFindingPool) // finding Pools ...
   const swapable = useSwap((s) => s.swapable) // Pool not ready
   const canFindPools = useSwap((s) => s.canFindPools) // Pool not found
   const refreshTokenPrice = useToken((s) => s.refreshTokenPrice)

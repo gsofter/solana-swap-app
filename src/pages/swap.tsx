@@ -257,8 +257,7 @@ function SwapCard() {
     useSwap.setState({ directionReversed: hasUISwrapped })
   }, [hasUISwrapped])
 
-  const hasSwapDetermined =
-    coin1 && isMeaningfulNumber(coin1Amount) && coin2 && isMeaningfulNumber(coin2Amount) && executionPrice
+  const hasSwapDetermined = coin1 && isMeaningfulNumber(coin1Amount) && coin2 && isMeaningfulNumber(coin2Amount)
   const cardRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     useSwap.setState({
@@ -762,7 +761,7 @@ function SwapCardInfo({ className }: { className?: string }) {
 
   const focusSide = useSwap((s) => s.focusSide)
   const minReceived = useSwap((s) => s.minReceived)
-  const fee = useSwap((s) => s.fee)
+  const fees = useSwap((s) => s.fees)
   const maxSpent = useSwap((s) => s.maxSpent)
   const selectedCalcResult = useSwap((s) => s.selectedCalcResult)
   const currentCalcResult = selectedCalcResult
@@ -772,21 +771,7 @@ function SwapCardInfo({ className }: { className?: string }) {
   const isDangerousPrice = useMemo(() => isMeaningfulNumber(priceImpact) && gte(priceImpact, 0.05), [priceImpact])
   const isWarningPrice = useMemo(() => isMeaningfulNumber(priceImpact) && gte(priceImpact, 0.01), [priceImpact])
 
-  const swapThrough =
-    upCoin && downCoin ? (
-      currentCalcResult?.routeType === 'amm' ? (
-        'Raydium Pool'
-      ) : currentCalcResult?.routeType === 'route' ? (
-        <SwappingThrough
-          startSymbol={upCoin?.symbol ?? ''}
-          middleSymbol={getToken(currentCalcResult?.middleMint)?.symbol ?? ''}
-          endSymbol={downCoin?.symbol ?? ''}
-          poolTypes={currentCalcResult.poolType}
-        />
-      ) : (
-        'Others'
-      )
-    ) : undefined
+  const swapThrough = upCoin && downCoin ? 'Raydium Pool' : undefined
 
   const isApprovePanelShown = useAppSettings((s) => s.isApprovePanelShown)
 
@@ -871,13 +856,12 @@ function SwapCardInfo({ className }: { className?: string }) {
             <SwapCardItem
               fieldName="Swap Fee"
               fieldValue={
-                fee ? (
+                fees ? (
                   <Col>
-                    {fee.map((CurrencyAmount) => {
-                      const tokenAmount = toUITokenAmount(CurrencyAmount)
+                    {fees.map((fee) => {
                       return (
-                        <div key={tokenAmount.token.symbol} className="text-right">
-                          {toString(tokenAmount)} {getToken(tokenAmount.token.mint)?.symbol ?? '--'}
+                        <div key={fee.symbol} className="text-right">
+                          {toString(fee.amount)} {fee.symbol ?? '--'}
                         </div>
                       )
                     })}

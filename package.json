@@ -33,6 +33,7 @@
     "bn.js": "^5.2.1"
   },
   "dependencies": {
+    "@bloxroute/solana-trader-client-ts": "1.4.0",
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.13",
     "@raydium-io/raydium-sdk": "1.1.0-beta.44",

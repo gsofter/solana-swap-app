@@ -18,6 +18,7 @@ import { Transaction } from '@solana/web3.js'
 import { dangerousTempProgramIds } from '../token/wellknownProgram.config'
 import { DEVNET_API_HTTP, TESTNET_AUTH_HEADER } from '@/application/swap/constants'
 import { txFromBase64 } from '../txTools/bloxTrade'
+import { postTradeSwap } from '../bloxroute/bloxroute'
 
 const txSwap = createTxHandler(() => async ({ transactionCollector, baseUtils: { connection, owner } }) => {
   const { checkWalletHasEnoughBalance, tokenAccountRawInfos } = useWallet.getState()
@@ -48,7 +49,7 @@ const txSwap = createTxHandler(() => async ({ transactionCollector, baseUtils: {
   assert(upCoin, 'select a coin in upper box')
   assert(downCoin, 'select a coin in lower box')
   assert(!isMintEqual(upCoin.mint, downCoin.mint), 'should not select same mint ')
-  assert(selectedCalcResult, "can't find correct route")
+  // assert(selectedCalcResult, "can't find correct route")
 
   const upCoinTokenAmount = toTokenAmount(upCoin, upCoinAmount, { alreadyDecimaled: true })
   const downCoinTokenAmount = toTokenAmount(downCoin, downCoinAmount, { alreadyDecimaled: true })
@@ -57,21 +58,13 @@ const txSwap = createTxHandler(() => async ({ transactionCollector, baseUtils: {
 
   assert(routeType, 'accidently routeType is undefined')
 
-  const bloxTradeRes = await fetch(`${process.env.NEXT_PUBLIC_TRADE_API_HTTP}/api/v1/trade/swap`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: process.env.NEXT_PUBLIC_TRADE_API_AUTH_HEADER || ''
-    },
-    body: JSON.stringify({
-      ownerAddress: String(owner),
-      inToken: coin1?.symbol,
-      outToken: coin2?.symbol,
-      inAmount: parseFloat(toString(coin1Amount)),
-      slippage: 0.01,
-      project: 'P_RAYDIUM'
-    })
-  }).then((res) => res.json())
+  const bloxTradeRes = await postTradeSwap({
+    ownerAddress: String(owner),
+    inToken: coin1?.symbol || '',
+    outToken: coin2?.symbol || '',
+    inAmount: parseFloat(toString(coin1Amount)),
+    slippage: 0.01
+  })
 
   // eslint-disable-next-line no-console
   console.log('bloxTradeRes =>', bloxTradeRes)

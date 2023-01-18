@@ -29,3 +29,28 @@ export const getQuotes = async ({
     projects: ['P_RAYDIUM']
   })
 }
+
+export const postTradeSwap = async ({
+  ownerAddress,
+  inToken,
+  outToken,
+  inAmount,
+  slippage
+}: {
+  ownerAddress: string
+  inToken: string
+  outToken: string
+  inAmount: number
+  slippage: number
+}) => {
+  const bxProvider = getBxProvider()
+
+  return await bxProvider.postTradeSwap({
+    ownerAddress,
+    inToken,
+    outToken,
+    inAmount,
+    slippage,
+    project: 'P_RAYDIUM'
+  })
+}

@@ -1,7 +1,7 @@
 import { SplToken } from '../token/type'
 import { Connection } from '@solana/web3.js'
 import { Numberish } from '@/types/constants'
-import { BaseProvider, HttpProvider, MAINNET_API_HTTP, loadFromEnv } from '@bloxroute/solana-trader-client-ts'
+import { HttpProvider } from '@bloxroute/solana-trader-client-ts'
 
 export const getBxProvider = () => {
   return new HttpProvider(process.env.NEXT_PUBLIC_TRADE_API_AUTH_HEADER || '')

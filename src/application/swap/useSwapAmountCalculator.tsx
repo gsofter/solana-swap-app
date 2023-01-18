@@ -16,6 +16,8 @@ import useLiquidity from '../liquidity/useLiquidity'
 import useWallet from '../wallet/useWallet'
 
 import { useSwap } from './useSwap'
+import { getQuotes } from '../bloxroute/bloxroute'
+import { GetQuotesResponse, QuoteRoute } from '@bloxroute/solana-trader-client-ts'
 
 export function useSwapAmountCalculator() {
   const { pathname } = useRouter()
@@ -51,6 +53,9 @@ export function useSwapAmountCalculator() {
         inputAmount: 1,
         slippageTolerance: 0.05
       })) ?? {}
+
+    // eslint-disable-next-line no-console
+    console.log('preflightCalcResult => ', preflightCalcResult)
 
     const swapable = Boolean(bestResult?.poolReady)
     const canFindPools = Boolean(bestResult)
@@ -115,25 +120,49 @@ export function useSwapAmountCalculator() {
         return
       }
 
-      const { abort: abortCalc, result: abortableAllSwapableRouteInfos } = makeAbortable(() =>
-        getAllSwapableRouteInfos({
+      const { abort: abortCalc, result: abortableSwapInfos } = makeAbortable(() =>
+        getQuotes({
           connection,
           input: upCoin,
           output: downCoin,
           inputAmount: upCoinAmount,
           slippageTolerance
         })
-          .then((result) => {
-            const { routeList, bestResult } = result ?? {}
-            return { routeList, bestResult }
+          .then((quotesRes: GetQuotesResponse) => {
+            const findBestRoute = () => {
+              let bestRoute: QuoteRoute | null = null
+              for (const route of quotesRes.quotes[0].routes) {
+                if (!bestRoute?.outAmount) bestRoute = { ...route }
+                else {
+                  if (bestRoute.outAmount < route.outAmount) bestRoute = { ...route }
+                }
+              }
+              return bestRoute
+            }
+
+            const bestRoute = findBestRoute()
+
+            return { bestRoute }
           })
           .catch((err) => {
             console.error(err)
           })
       )
-      abortableAllSwapableRouteInfos.then((infos) => {
-        if (!infos) return
-        const { routeList: calcResult, bestResult } = infos
+
+      useSwap.setState({
+        isFindingPool: true
+      })
+
+      abortableSwapInfos.then((info) => {
+        if (!info) return
+
+        // eslint-disable-next-line no-console
+        console.log('info => ', info)
+
+        if (!info.bestRoute) return
+
+        const { bestRoute } = info
+
         const resultStillFresh = (() => {
           const directionReversed = useSwap.getState().directionReversed
           const currentUpCoinAmount =
@@ -146,24 +175,33 @@ export function useSwapAmountCalculator() {
         })()
         if (!resultStillFresh) return
 
-        // if (focusDirectionSide === 'up') {
-        const swapable = bestResult?.poolReady
-        const canFindPools = Boolean(calcResult?.length)
-        const { priceImpact, executionPrice, currentPrice, routeType, fee, amountOut, minAmountOut, poolKey } =
-          bestResult ?? {}
+        const swapable = Boolean(info.bestRoute)
+
+        const canFindPools = Boolean(info.bestRoute?.steps)
+
+        const priceImpact = bestRoute.steps[0]?.priceImpactPercent?.percent
+        const minAmountOut = bestRoute?.outAmountMin
+        const amountOut = bestRoute?.outAmount
+        const fees = bestRoute.steps.map((step) => ({
+          amount: step.fee?.amount || 0,
+          percent: step.fee?.percent || 0,
+          symbol: step.inToken || ''
+        }))
 
         useSwap.setState({
-          fee,
-          calcResult,
-          preflightCalcResult: calcResult,
-          selectedCalcResult: bestResult,
+          fees,
+          // calcResult,
+          // preflightCalcResult: calcResult,
+          // selectedCalcResult: bestResult,
           priceImpact,
-          executionPrice,
-          currentPrice,
+          // executionPrice,
+          // currentPrice,
+          isFindingPool: false,
+          bestRoute: bestRoute,
           minReceived: minAmountOut,
           maxSpent: undefined,
           swapable,
-          routeType,
+          routeType: 'amm',
           canFindPools,
           ...{
             [focusSide === 'coin1' ? 'coin2Amount' : 'coin1Amount']: amountOut,

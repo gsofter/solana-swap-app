@@ -11,6 +11,7 @@ import create from 'zustand'
 import { Numberish } from '@/types/constants'
 
 import { SplToken } from '../token/type'
+import { QuoteRoute } from '@bloxroute/solana-trader-client-ts'
 
 export type SwapStore = {
   directionReversed: boolean // determine pairSide  swap make this to be true
@@ -58,6 +59,10 @@ export type SwapStore = {
   // just for trigger refresh
   refreshCount: number
   refreshSwap: () => void
+
+  fees?: { amount: number; percent: number; symbol: string }[]
+  bestRoute?: QuoteRoute
+  isFindingPool: boolean
 }
 
 export const useSwap = create<SwapStore>((set, get) => ({
@@ -72,6 +77,7 @@ export const useSwap = create<SwapStore>((set, get) => ({
 
   scrollToInputBox: () => {},
   klineData: {},
+  isFindingPool: false,
 
   refreshCount: 0,
   refreshSwap: () => {

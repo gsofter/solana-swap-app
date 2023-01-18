@@ -54,9 +54,6 @@ export function useSwapAmountCalculator() {
         slippageTolerance: 0.05
       })) ?? {}
 
-    // eslint-disable-next-line no-console
-    console.log('preflightCalcResult => ', preflightCalcResult)
-
     const swapable = Boolean(bestResult?.poolReady)
     const canFindPools = Boolean(bestResult)
     useSwap.setState({ preflightCalcResult: preflightCalcResult, canFindPools, swapable })
@@ -146,6 +143,11 @@ export function useSwapAmountCalculator() {
           })
           .catch((err) => {
             console.error(err)
+            useSwap.setState({
+              canFindPools: false,
+              isFindingPool: false
+            })
+            throw err
           })
       )
 
@@ -155,9 +157,6 @@ export function useSwapAmountCalculator() {
 
       abortableSwapInfos.then((info) => {
         if (!info) return
-
-        // eslint-disable-next-line no-console
-        console.log('info => ', info)
 
         if (!info.bestRoute) return
 

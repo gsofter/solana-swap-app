@@ -13,7 +13,7 @@ export const WSOLMint = new PublicKey('So111111111111111111111111111111111111111
 export const SOLDecimals = 9
 export const WSOL = new Token(WSOLMint, SOLDecimals, 'WSOL', 'wrapped solana')
 export const SOL = new Currency(SOLDecimals, 'SOL', 'solana')
-export const SOL_BASE_BALANCE = '0.05'
+export const SOL_BASE_BALANCE = '0.11'
 
 //#region ------------------- quantum SOL  -------------------
 

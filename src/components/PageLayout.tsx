@@ -156,6 +156,7 @@ function VersionTooOldDialog() {
   const isInBonsaiTest = useAppSettings((s) => s.isInBonsaiTest)
   const isInLocalhost = useAppSettings((s) => s.isInLocalhost)
   if (isInBonsaiTest || isInLocalhost) return null
+  return null
   return (
     <Dialog open={versionRefreshData === 'too-old' && !isInLocalhost && !isInBonsaiTest} canClosedByMask={false}>
       {({ close }) => (

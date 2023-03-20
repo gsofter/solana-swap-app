@@ -26,7 +26,7 @@ export const getQuotes = async ({
     inAmount: Number(inputAmount),
     slippage: Number(slippageTolerance),
     limit: 5,
-    projects: ['P_RAYDIUM']
+    projects: ['P_ALL']
   })
 }
 
@@ -51,6 +51,6 @@ export const postTradeSwap = async ({
     outToken,
     inAmount,
     slippage,
-    project: 'P_RAYDIUM'
+    project: 'P_ALL'
   })
 }
